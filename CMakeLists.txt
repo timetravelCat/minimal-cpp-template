@@ -13,30 +13,28 @@ set(CMAKE_CXX_STANDARD_REQUIRED On)
 ###################
 # Library example #
 ###################
-# add_library(${LIBRARY_NAME} INTERFACE 
+# add_library(${LIBRARY_NAME} [INTERFACE]
+#  Listing up your sources if not interface library
 # )
-# target_include_directories(
-#     ${LIBRARY_NAME}
-#     INTERFACE
+# target_include_directories(${LIBRARY_NAME} [PUBLIC or INTERFACE]
 #     $<INSTALL_INTERFACE:include>
 #     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 # )
-# add_library(${LIBRARY_NAME}::${LIBRARY_NAME} ALIAS ${LIBRARY_NAME})
+# add_library(${PROJECT_NAME}::${LIBRARY_NAME} ALIAS ${LIBRARY_NAME})
 
 ######################
 # Executable example #
 ######################
 # add_executable(${EXECUTABLE_NAME}
+#   Listing up your sources
 # )
-# target_include_directories(
-#     ${EXECUTABLE_NAME}
-#     INTERFACE
+# target_include_directories(${EXECUTABLE_NAME} PUBLIC
 #     $<INSTALL_INTERFACE:include>
 #     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 #     PRIVATE
 #     ${CMAKE_CURRENT_SOURCE_DIR}/src
 # )
-# add_executable(${EXECUTABLE_NAME}::${EXECUTABLE_NAME} ALIAS ${EXECUTABLE_NAME})
+# add_executable(${PROJECT_NAME}::${EXECUTABLE_NAME} ALIAS ${EXECUTABLE_NAME})
 
 # Set common compiler warnings
 include(cmake/CompilerWarnings.cmake)
@@ -53,9 +51,9 @@ include(GNUInstallDirs)
 
 install(
   TARGETS 
+    # Listing up all excutables that you want to install
     # ${LIBRARY_NAME}
     # ${EXECUTABLE_NAME}
-    # Listing up all excutables that you want to install
   EXPORT ${PROJECT_NAME}Targets
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
