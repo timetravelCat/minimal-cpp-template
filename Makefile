@@ -1,4 +1,4 @@
-.PHONY: help install clean
+.PHONY: help install clean test default all
 .DEFAULT_GOAL := help
 
 define BROWSER_PYSCRIPT
@@ -37,4 +37,19 @@ install: ## install the package to the `INSTALL_LOCATION`
 	cmake --build build --target install --config Release
 
 clean: ## remove build folder
-	rm -rf build/
+	rm -rf build/ install/ log/
+
+test: ## build with test
+	@mkdir -p build
+	@cmake -Bbuild -DCMAKE_INSTALL_PREFIX=$(INSTALL_LOCATION) -DBUILD_TESTING=ON
+	@cmake --build build -- -j $(nproc)
+
+default: ## build without any options
+	@mkdir -p build
+	@cmake -Bbuild -DCMAKE_INSTALL_PREFIX=$(INSTALL_LOCATION)
+	@cmake --build build -- -j $(nproc)
+
+all: ## build all targets
+	@mkdir -p build
+	@cmake -Bbuild -DCMAKE_INSTALL_PREFIX=$(INSTALL_LOCATION) -DBUILD_TESTING=ON # Add other options
+	@cmake --build build -- -j $(nproc)
