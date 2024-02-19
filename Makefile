@@ -1,4 +1,4 @@
-.PHONY: help install clean test default all
+.PHONY: help install clean test default all ros2
 .DEFAULT_GOAL := help
 
 define BROWSER_PYSCRIPT
@@ -53,3 +53,6 @@ all: ## build all targets
 	@mkdir -p build
 	@cmake -Bbuild -DCMAKE_INSTALL_PREFIX=$(INSTALL_LOCATION) -DBUILD_TESTING=ON # Add other options
 	@cmake --build build -- -j $(nproc)
+	
+ros2: ## build ros2 package
+	@colcon build --cmake-args -DBUILD_TESTING=OFF -DCMAKE_BUILD_TYPE=Release
